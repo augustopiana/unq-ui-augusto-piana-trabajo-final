@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import queen from "../../assets/the-queen.webp";
 import smiths from "../../assets/the-smiths.webp";
 import louder from "../../assets/louder-than.webp";
@@ -7,6 +7,8 @@ import meat from "../../assets/meat.webp";
 import live from "../../assets/live.webp";
 import disintegration from "../../assets/disintegration.webp";
 import paredes from "../../assets/paredes.webp";
+
+import light from "../../assets/audio/light.mp3";
 
 import Card from "../card/card";
 
@@ -21,7 +23,6 @@ const images = [
 	{ src: paredes, alt: "EV" },
 ];
 
-// Crear pares con un identificador único
 const shuffledImagePairs = images
 	.flatMap((image, index) => [
 		{ ...image, id: `${image.alt}-${index}-0` },
@@ -32,7 +33,9 @@ const shuffledImagePairs = images
 const CardGrid = () => {
 	const [flippedCards, setFlippedCards] = useState([]);
 	const [solvedCards, setSolvedCards] = useState([]);
+	const [isVictory, setIsVictory] = useState(false);
 	const [score, setScore] = useState(0);
+	const [currentAudio, setCurrentAudio] = useState(null);
 
 	const handleCardClick = (card) => {
 		if (flippedCards.includes(card) || solvedCards.includes(card)) {
@@ -61,21 +64,65 @@ const CardGrid = () => {
 		return flippedCards.includes(card) || solvedCards.includes(card);
 	};
 
+	const playVictorySound = () => {
+		if (currentAudio) {
+			currentAudio.pause();
+			currentAudio.currentTime = 0;
+		}
+		const audio = new Audio(light);
+		setCurrentAudio(audio);
+		audio.play();
+	};
+
+	useEffect(() => {
+		if (solvedCards.length === shuffledImagePairs.length) {
+			setIsVictory(true);
+			playVictorySound();
+		}
+	}, [solvedCards]);
+
+	const restartGame = () => {
+		if (currentAudio) {
+			currentAudio.pause();
+			currentAudio.currentTime = 0;
+		}
+		setIsVictory(false);
+		setFlippedCards([]);
+		setSolvedCards([]);
+		setScore(0);
+		shuffledImagePairs.sort(() => Math.random() - 0.5);
+	};
+
 	return (
-		<div>
-			<h2 className="text-center text-2xl text-customPink font-bold mt-4">
-				Pares Encontrados: {score}
-			</h2>
-			<div className="grid grid-cols-4 gap-4 p-4">
-				{shuffledImagePairs.map((image, index) => (
-					<Card
-						key={index}
-						image={image}
-						onClick={() => handleCardClick(image)}
-						isFlipped={isCardFlipped(image)}
-					/>
-				))}
-			</div>
+		<div className="game-container">
+			{isVictory ? (
+				<div className="victory-screen flex flex-col items-center">
+					<h1 className="text-4xl font-bold text-green-500">¡Victoria!</h1>
+					<button
+						className="mt-4 px-4 py-2 bg-customPink text-white rounded hover:bg-green-950"
+						onClick={restartGame}
+					>
+						Volver a jugar
+					</button>
+				</div>
+			) : (
+				<div>
+					<h1 className="text-4xl font-bold text-center text-customPink">
+						{" "}
+						Pares Encontrados: {score}{" "}
+					</h1>
+					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+						{shuffledImagePairs.map((image, index) => (
+							<Card
+								key={index}
+								image={image}
+								onClick={() => handleCardClick(image)}
+								isFlipped={isCardFlipped(image)}
+							/>
+						))}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
