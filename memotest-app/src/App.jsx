@@ -1,5 +1,4 @@
 import "./App.css";
-import GaleriaImagenes from "./components/galeriaImagenes/galeriaImagenes";
 import Game from "./components/game/game";
 
 function App() {
@@ -10,7 +9,7 @@ function App() {
 					Memotest Game
 				</h1>
 			</div>
-			<Game className="" />
+			<Game/>
 		</div>
 	);
 }

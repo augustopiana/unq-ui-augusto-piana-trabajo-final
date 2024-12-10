@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import GaleriaImagenes from '../galeriaImagenes/galeriaImagenes';
+import CardGrid from '../galeriaImagenes/cardGrid';
 
 
 const Game = () => {
@@ -21,7 +21,7 @@ const Game = () => {
                 Start Game
             </button>
         ) : (
-            <GaleriaImagenes />
+            <CardGrid />
         )
         }
         </div>
