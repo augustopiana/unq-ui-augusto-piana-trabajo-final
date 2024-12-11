@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import CardGrid from "../galeriaImagenes/cardGrid";
+import CardGrid from "../cardGrid/cardGrid";
+import menuSelection from "../../assets/audio/menu-selection.mp3"
 
 const Game = () => {
 	const [startGame, setStartGame] = useState(false);
 	const [gridSize, setGridSize] = useState(0);
 
 	const handleStartGame = (size) => {
+		const audio = new Audio(menuSelection);
+		audio.play();
 		setGridSize(size);
 		setStartGame(true);
 	};
