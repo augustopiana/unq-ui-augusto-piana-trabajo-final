@@ -11,8 +11,8 @@ const Game = () => {
 	};
 
 	const boardSizes = [
-		{ size: 2, label: "2x2", description: "Intermediate Level", emoji:"🟢"  },
-		{ size: 4, label: "4x4", description: "Beginner Level", emoji:"🟡"},
+		{ size: 2, label: "2x2", description: "Beginner Level", emoji:"🟢"  },
+		{ size: 4, label: "4x4", description: "Intermediate Level", emoji:"🟡"},
 		{ size: 8, label: "8x8", description: "Expert Level", emoji:"🔴" },
 	];
 

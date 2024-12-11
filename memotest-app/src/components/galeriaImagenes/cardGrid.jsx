@@ -34,6 +34,8 @@ import wishyou from "../../assets/images/wishyou.webp";
 import React, { useState, useEffect } from "react";
 
 import light from "../../assets/audio/light.mp3";
+import cardSound from "../../assets/audio/card-sounds.mp3";
+import win from "../../assets/audio/win-sound.mp3";
 
 import Card from "../card/card";
 
@@ -101,6 +103,9 @@ const CardGrid = ({ gridSize }) => {
 		if (flippedCards.length === 2) return;
 		if (isCardFlipped(card)) return;
 
+		const audio = new Audio(cardSound);
+		audio.play();
+
 		const newFlippedCards = [...flippedCards, card];
 		setFlippedCards(newFlippedCards);
 
@@ -117,13 +122,16 @@ const CardGrid = ({ gridSize }) => {
 	};
 
 	const playVictorySound = () => {
+		const winAudio = new Audio(win);
+		winAudio.play();
+
 		if (currentAudio) {
 			currentAudio.pause();
 			currentAudio.currentTime = 0;
 		}
-		const audio = new Audio(light);
-		setCurrentAudio(audio);
-		audio.play();
+		const song = new Audio(light);
+		setCurrentAudio(song);
+		song.play();
 	};
 
 	const restartGame = () => {
