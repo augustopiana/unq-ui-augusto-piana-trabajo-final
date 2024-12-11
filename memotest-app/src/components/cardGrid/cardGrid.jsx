@@ -48,6 +48,8 @@ const CardGrid = ({ gridSize }) => {
 			setTimeout(() => {
 				const [firstCard, secondCard] = newFlippedCards;
 				if (firstCard.src === secondCard.src) {
+					const audio = new Audio(win);
+					audio.play();
 					setSolvedCards((prev) => [...prev, firstCard, secondCard]);
 					setScore((prev) => prev + 1);
 				}
@@ -111,7 +113,7 @@ const CardGrid = ({ gridSize }) => {
 			) : (
 				<div>
 					<h1 className="text-4xl font-bold text-center text-customPink">
-						Founded pairs: {score}/{numPairs} 🎯
+						Finded pairs: {score}/{numPairs} 🎯
 					</h1>
 					<div
 						className="grid sm:grid-cols-3 md:grid-cols-4 gap-4 grid-container"
