@@ -5,7 +5,12 @@ Este proyecto esta basado en el juego memotest. Se permiten elegir 3 tipos de ni
 Dato de color, como "cards" se utilizan distintos albumes de bandas internacionales y nacionales como:
 The Smiths, The Cure, Error Vanessa, entre otros..
 
-## Cómo descargar e instalar el proyecto
+## A- Netlify
+
+**Link**
+`https://memotestmusic.netlify.app`
+
+## B- Cómo descargar e instalar el proyecto
 
 1. **Clonar el repositorio**
 
