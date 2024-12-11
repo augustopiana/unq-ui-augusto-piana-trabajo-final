@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import light from "../../assets/audio/light.mp3";
 import cardSound from "../../assets/audio/card-sounds.mp3";
 import win from "../../assets/audio/win-sound.mp3";
+import menu from "../../assets/audio/menu-selection.mp3";
 
 import images from "../../assets/images/images";
 import Card from "../card/card";
@@ -81,6 +82,10 @@ const CardGrid = ({ gridSize }) => {
 		setSolvedCards([]);
 		setScore(0);
 
+		const audio = new Audio(menu);
+		audio.play();
+
+
 		const shuffled = [...selectedImages, ...selectedImages]
 			.map((image, index) => ({ ...image, id: `${image.alt}-${index}` }))
 			.sort(() => Math.random() - 0.5);
@@ -99,7 +104,7 @@ const CardGrid = ({ gridSize }) => {
 			{isVictory ? (
 				<div className="victory-screen flex flex-col items-center">
 					<h1 className="text-4xl font-bold text-green-500">🎉 ¡Win! 🎉</h1>
-					<img src={images[0].src} alt="Queen" className="w-auto mt-16" />
+					<img src={images[0].src} alt="Queen" className="w-auto mt-16 wincard" />
 					<text className="text-green-500 font-bold text-2xl">
 						There is a Light That Never Goes Out - The Smiths 🎶
 					</text>
