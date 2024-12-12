@@ -21,10 +21,11 @@ const CardGrid = ({ gridSize }) => {
 	const numPairs = (gridSize * gridSize) / 2;
 	const selectedImages = images.slice(0, numPairs);
 
+	const shuffled = [...selectedImages, ...selectedImages]
+		.map((image, index) => ({ ...image, id: `${image.alt}-${index}` }))
+		.sort(() => Math.random() - 0.5);
+
 	useEffect(() => {
-		const shuffled = [...selectedImages, ...selectedImages]
-			.map((image, index) => ({ ...image, id: `${image.alt}-${index}` }))
-			.sort(() => Math.random() - 0.5);
 		setShuffledImagePairs(shuffled);
 	}, [gridSize]);
 
@@ -84,11 +85,6 @@ const CardGrid = ({ gridSize }) => {
 
 		const audio = new Audio(menu);
 		audio.play();
-
-
-		const shuffled = [...selectedImages, ...selectedImages]
-			.map((image, index) => ({ ...image, id: `${image.alt}-${index}` }))
-			.sort(() => Math.random() - 0.5);
 		setShuffledImagePairs(shuffled);
 	};
 
@@ -104,7 +100,11 @@ const CardGrid = ({ gridSize }) => {
 			{isVictory ? (
 				<div className="victory-screen flex flex-col items-center">
 					<h1 className="text-4xl font-bold text-green-500">🎉 ¡Win! 🎉</h1>
-					<img src={images[0].src} alt="Queen" className="w-auto mt-16 wincard" />
+					<img
+						src={images[0].src}
+						alt="Queen"
+						className="w-auto mt-16 wincard"
+					/>
 					<text className="text-green-500 font-bold text-2xl">
 						There is a Light That Never Goes Out - The Smiths 🎶
 					</text>
